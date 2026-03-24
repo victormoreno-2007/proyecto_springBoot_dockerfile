@@ -47,7 +47,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> {
                 // 1. REGLAS PÚBLICAS (Lo que cualquiera puede ver)
                 auth.requestMatchers("/api/v1/auth/**").permitAll();
-                auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
+                auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll();
                 auth.requestMatchers(HttpMethod.GET, "/api/v1/tools/**").permitAll(); // Ver herramientas es público
 
                 // 2. REGLAS DE ROLES (Lo específico)
@@ -90,7 +90,8 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(
             "http://localhost:5173",
-            "http://localhost:5174"
+            "http://localhost:5174",
+            "https://proyecto-spring-boot-front-sajb.vercel.app/"
         )); 
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
