@@ -43,8 +43,8 @@ public class BookingEntity {
     @JoinColumn(name = "tool_id", nullable = false)
     private ToolEntity tool;
 
-    @Column(name = "payment_id", columnDefinition = "BINARY(16)")
-    private UUID paymentId; // Puede ser null hasta que pague
+    @Column(name = "payment_id")
+    private UUID paymentId;
 
     @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;

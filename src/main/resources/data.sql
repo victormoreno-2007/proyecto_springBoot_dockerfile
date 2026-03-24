@@ -1,5 +1,5 @@
 -- Desactivar revisión de llaves foráneas temporalmente
-SET FOREIGN_KEY_CHECKS = 0;
+-- SET FOREIGN_KEY_CHECKS = 0;
 
 -- ===============================================================================================
 -- 1. USUARIOS (Password para todos: "123456")

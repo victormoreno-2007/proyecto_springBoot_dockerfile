@@ -39,15 +39,15 @@ public class ToolEntity {
     @Column(name = "price_per_day", nullable = false, precision = 10, scale = 2)
     private BigDecimal pricePerDay;
 
-    @Column(name = "image_url", columnDefinition = "LONGTEXT")
+    @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ToolStatus status;
 
-    @Column(name = "provider_id", nullable = false, columnDefinition = "BINARY(16)")
-    private UUID providerId; // Relación lógica con User (Proveedor)
+    @Column(name = "provider_id", nullable = false)
+    private UUID providerId;
 
     @Column(nullable = false, columnDefinition = "int default 1") 
     private Integer stock;
