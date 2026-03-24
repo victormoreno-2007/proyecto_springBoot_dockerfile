@@ -46,6 +46,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> {
                 // 1. REGLAS PÚBLICAS (Lo que cualquiera puede ver)
+                auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                 auth.requestMatchers("/api/v1/auth/**").permitAll();
                 auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll();
                 auth.requestMatchers(HttpMethod.GET, "/api/v1/tools/**", "/api/v1/tools").permitAll(); // Ver herramientas es público
