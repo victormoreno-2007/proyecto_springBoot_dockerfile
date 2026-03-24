@@ -48,7 +48,7 @@ public class SecurityConfig {
                 // 1. REGLAS PÚBLICAS (Lo que cualquiera puede ver)
                 auth.requestMatchers("/api/v1/auth/**").permitAll();
                 auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll();
-                auth.requestMatchers(HttpMethod.GET, "/api/v1/tools/**").permitAll(); // Ver herramientas es público
+                auth.requestMatchers(HttpMethod.GET, "/api/v1/tools/**", "/api/v1/tools").permitAll(); // Ver herramientas es público
 
                 // 2. REGLAS DE ROLES (Lo específico)
                 // Aquí va la línea que te causaba el error (ANTES del anyRequest)
