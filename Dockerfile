@@ -9,8 +9,8 @@ RUN mvn clean package -DskipTests
 # ETAPA 2: Ejecución
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-# El nombre del JAR sale de tu pom.xml: api_gateway-0.0.1-SNAPSHOT.jar
-COPY --from=build /app/target/api_gateway-0.0.1-SNAPSHOT.jar app.jar
+# Aquí está el nombre corregido
+COPY --from=build /app/target/security-app-1.0.0-SNAPSHOT.jar app.jar
 
 # Hugging Face Spaces usa el puerto 7860 por defecto
 EXPOSE 7860
