@@ -1,6 +1,3 @@
--- Desactivar revisión de llaves foráneas temporalmente
--- SET FOREIGN_KEY_CHECKS = 0;
-
 -- ===============================================================================================
 -- 1. USUARIOS (Password para todos: "123456")
 -- ===============================================================================================
@@ -8,37 +5,37 @@
 -- ADMIN
 INSERT INTO users (id, email, password, first_name, last_name, role) 
 VALUES ('11111111-1111-1111-1111-111111111111', 'admin@construrenta.com', '$2a$10$.5Elh8fgxypNUWhpUUr/xOa2sZm0VIaE0qWuGGl9otUfobb46T1Pq', 'Super', 'Admin', 'ADMIN')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (id) DO NOTHING;
 
 -- PROVEEDOR 1 (Marcela)
 INSERT INTO users (id, email, password, first_name, last_name, role) 
 VALUES ('22222222-2222-2222-2222-222222222222', 'marcela@proveedor.com', '$2a$10$.5Elh8fgxypNUWhpUUr/xOa2sZm0VIaE0qWuGGl9otUfobb46T1Pq', 'Marcela', 'Albarracin', 'PROVIDER')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (id) DO NOTHING;
 
 -- PROVEEDOR 2 (Sebastian)
 INSERT INTO users (id, email, password, first_name, last_name, role) 
 VALUES ('33333333-3333-3333-3333-333333333333', 'sebastian@proveedor.com', '$2a$10$.5Elh8fgxypNUWhpUUr/xOa2sZm0VIaE0qWuGGl9otUfobb46T1Pq', 'Sebastian', 'Jaimes', 'PROVIDER')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (id) DO NOTHING;
 
 -- PROVEEDOR 3 (Victor)
 INSERT INTO users (id, email, password, first_name, last_name, role) 
 VALUES ('44444444-4444-4444-4444-444444444445', 'victor@proveedor.com', '$2a$10$.5Elh8fgxypNUWhpUUr/xOa2sZm0VIaE0qWuGGl9otUfobb46T1Pq', 'Victor', 'Moreno', 'PROVIDER')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (id) DO NOTHING;
 
 -- CLIENTE 1 (Marcela)
 INSERT INTO users (id, email, password, first_name, last_name, role) 
 VALUES ('44444444-4444-4444-4444-444444444444', 'marcela@cliente.com', '$2a$10$.5Elh8fgxypNUWhpUUr/xOa2sZm0VIaE0qWuGGl9otUfobb46T1Pq', 'Marcela', 'Albarracin', 'CUSTOMER')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (id) DO NOTHING;
 
 -- CLIENTE 2 (Sebastian)
 INSERT INTO users (id, email, password, first_name, last_name, role) 
 VALUES ('55555555-5555-5555-5555-555555555555', 'sebastian@cliente.com', '$2a$10$.5Elh8fgxypNUWhpUUr/xOa2sZm0VIaE0qWuGGl9otUfobb46T1Pq', 'Sebastian', 'Jaimes', 'CUSTOMER')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (id) DO NOTHING;
 
 -- CLIENTE 3 (Victor)
 INSERT INTO users (id, email, password, first_name, last_name, role) 
 VALUES ('66666666-6666-6666-6666-666666666666', 'victor@cliente.com', '$2a$10$.5Elh8fgxypNUWhpUUr/xOa2sZm0VIaE0qWuGGl9otUfobb46T1Pq', 'Victor', 'Moreno', 'CUSTOMER')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (id) DO NOTHING;
 
 -- ===============================================================================================
 -- 2. HERRAMIENTAS (20 Items) - Precios en COP y Rutas Locales
@@ -67,7 +64,7 @@ INSERT INTO tools (id, name, description, price_per_day, image_url, status, stoc
 ('a0000000-0000-0000-0000-000000000017', 'Carretilla Buggy', 'Carretilla plástica profunda tipo buggy. Capacidad 100 litros. Llanta neumática reforzada.', 12000.00, '/herramientas/carretilla.jpeg', 'AVAILABLE', 15, '33333333-3333-3333-3333-333333333333'),
 ('a0000000-0000-0000-0000-000000000018', 'Extensión Eléctrica Ind.', 'Cable encauchetado calibre 12 de 30 metros. Tomas industriales a prueba de agua. Soporta maquinaria pesada.', 15000.00, '/herramientas/extension.jpeg', 'AVAILABLE', 10, '33333333-3333-3333-3333-333333333333'),
 ('a0000000-0000-0000-0000-000000000019', 'Casco de Seguridad', 'Casco certificado tipo ingeniero. Suspensión rachet de 4 puntos. Dieléctrico. Colores variados.', 5000.00, '/herramientas/casco.jpeg', 'AVAILABLE', 30, '33333333-3333-3333-3333-333333333333')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (id) DO NOTHING;
 
 
 -- ===============================================================================================
@@ -76,120 +73,57 @@ ON CONFLICT DO NOTHING;
 
 -- Reserva 1 (Completada - Soldador por 3 días)
 INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000001-0000-0000-0000-000000000001', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-01-10 08:00:00', '2024-01-13 18:00:00', 195000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
+('d0000001-0000-0000-0000-000000000001', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-01-10 08:00:00', '2024-01-13 18:00:00', 195000.00, 'COMPLETED')
+ON CONFLICT (id) DO NOTHING;
 
--- CORRECCIÓN: Cambiamos las p iniciales por c (letra válida en hexadecimal)
 INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('c0000001-0000-0000-0000-000000000001', 195000.00, '2024-01-10 09:00:00', 'CREDIT_CARD', 'COMPLETED', 'b0000001-0000-0000-0000-000000000001')
-ON CONFLICT DO NOTHING;
+('c0000001-0000-0000-0000-000000000001', 195000.00, '2024-01-10 09:00:00', 'CREDIT_CARD', 'COMPLETED', 'd0000001-0000-0000-0000-000000000001')
+ON CONFLICT (id) DO NOTHING;
 
 -- Reserva 2 (Completada - Soldador por 5 días)
 INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000002-0000-0000-0000-000000000002', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-02-01 08:00:00', '2024-02-06 18:00:00', 325000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
+('d0000002-0000-0000-0000-000000000002', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-02-01 08:00:00', '2024-02-06 18:00:00', 325000.00, 'COMPLETED')
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('c0000002-0000-0000-0000-000000000002', 325000.00, '2024-02-01 08:30:00', 'PAYPAL', 'COMPLETED', 'b0000002-0000-0000-0000-000000000002')
-ON CONFLICT DO NOTHING;
+('c0000002-0000-0000-0000-000000000002', 325000.00, '2024-02-01 08:30:00', 'PAYPAL', 'COMPLETED', 'd0000002-0000-0000-0000-000000000002')
+ON CONFLICT (id) DO NOTHING;
 
--- Generación de reservas variadas (relleno para cumplir rúbrica)
+-- Generación de reservas variadas
 INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000003-0000-0000-0000-000000000003', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-03-01 08:00', '2024-03-02 18:00', 65000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
+('d0000003-0000-0000-0000-000000000003', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-03-01 08:00:00', '2024-03-02 18:00:00', 65000.00, 'COMPLETED')
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('c0000003-0000-0000-0000-000000000003', 65000.00, '2024-03-01 08:00', 'CASH', 'COMPLETED', 'b0000003-0000-0000-0000-000000000003')
-ON CONFLICT DO NOTHING;
+('c0000003-0000-0000-0000-000000000003', 65000.00, '2024-03-01 08:00:00', 'CASH', 'COMPLETED', 'd0000003-0000-0000-0000-000000000003')
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000004-0000-0000-0000-000000000004', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-03-05 08:00', '2024-03-07 18:00', 130000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
+('d0000004-0000-0000-0000-000000000004', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-03-05 08:00:00', '2024-03-07 18:00:00', 130000.00, 'COMPLETED')
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('c0000004-0000-0000-0000-000000000004', 130000.00, '2024-03-05 08:00', 'TRANSFER', 'COMPLETED', 'b0000004-0000-0000-0000-000000000004')
-ON CONFLICT DO NOTHING;
+('c0000004-0000-0000-0000-000000000004', 130000.00, '2024-03-05 08:00:00', 'TRANSFER', 'COMPLETED', 'd0000004-0000-0000-0000-000000000004')
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000005-0000-0000-0000-000000000005', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-04-10 08:00', '2024-04-15 18:00', 325000.00, 'CONFIRMED')
-ON CONFLICT DO NOTHING;
+('d0000005-0000-0000-0000-000000000005', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-04-10 08:00:00', '2024-04-15 18:00:00', 325000.00, 'CONFIRMED')
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('c0000005-0000-0000-0000-000000000005', 325000.00, '2024-04-10 08:00', 'CREDIT_CARD', 'COMPLETED', 'b0000005-0000-0000-0000-000000000005')
-ON CONFLICT DO NOTHING;
+('c0000005-0000-0000-0000-000000000005', 325000.00, '2024-04-10 08:00:00', 'CREDIT_CARD', 'COMPLETED', 'd0000005-0000-0000-0000-000000000005')
+ON CONFLICT (id) DO NOTHING;
 
--- Reservas de relleno masivas (Precios aleatorios coherentes)
+-- Reservas de relleno masivas
 INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000006-0000-0000-0000-000000000006', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-05-01 08:00', '2024-05-03 18:00', 130000.00, 'COMPLETED'),
-('b0000007-0000-0000-0000-000000000007', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-05-05 08:00', '2024-05-06 18:00', 65000.00, 'COMPLETED'),
-('b0000008-0000-0000-0000-000000000008', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-05-10 08:00', '2024-05-15 18:00', 325000.00, 'COMPLETED'),
-('b0000009-0000-0000-0000-000000000009', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-06-01 08:00', '2024-06-03 18:00', 130000.00, 'COMPLETED'),
-('b0000010-0000-0000-0000-000000000010', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-06-10 08:00', '2024-06-12 18:00', 130000.00, 'COMPLETED'),
-('b0000011-0000-0000-0000-000000000011', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-07-01 08:00', '2024-07-05 18:00', 260000.00, 'COMPLETED'),
-('b0000012-0000-0000-0000-000000000012', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-07-15 08:00', '2024-07-16 18:00', 65000.00, 'COMPLETED'),
-('b0000013-0000-0000-0000-000000000013', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-08-01 08:00', '2024-08-02 18:00', 65000.00, 'COMPLETED'),
-('b0000014-0000-0000-0000-000000000014', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-08-10 08:00', '2024-08-15 18:00', 325000.00, 'COMPLETED'),
-('b0000015-0000-0000-0000-000000000015', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-09-01 08:00', '2024-09-05 18:00', 260000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
-
-
--- ===============================================================================================
--- 3. RESERVAS Y PAGOS (20 Registros Pasados) - Precios actualizados
--- ===============================================================================================
-
--- Reserva 1 (Completada - Soldador por 3 días)
-INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000001-0000-0000-0000-000000000001', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-01-10 08:00:00', '2024-01-13 18:00:00', 195000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
-
-INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('p0000001-0000-0000-0000-000000000001', 195000.00, '2024-01-10 09:00:00', 'CREDIT_CARD', 'COMPLETED', 'b0000001-0000-0000-0000-000000000001')
-ON CONFLICT DO NOTHING;
-
--- Reserva 2 (Completada - Soldador por 5 días)
-INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000002-0000-0000-0000-000000000002', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-02-01 08:00:00', '2024-02-06 18:00:00', 325000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
-
-INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('p0000002-0000-0000-0000-000000000002', 325000.00, '2024-02-01 08:30:00', 'PAYPAL', 'COMPLETED', 'b0000002-0000-0000-0000-000000000002')
-ON CONFLICT DO NOTHING;
-
--- Generación de reservas variadas (relleno para cumplir rúbrica)
-INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000003-0000-0000-0000-000000000003', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-03-01 08:00', '2024-03-02 18:00', 65000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
-
-INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('p0000003-0000-0000-0000-000000000003', 65000.00, '2024-03-01 08:00', 'CASH', 'COMPLETED', 'b0000003-0000-0000-0000-000000000003')
-ON CONFLICT DO NOTHING;
-
-INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000004-0000-0000-0000-000000000004', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-03-05 08:00', '2024-03-07 18:00', 130000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
-
-INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('p0000004-0000-0000-0000-000000000004', 130000.00, '2024-03-05 08:00', 'TRANSFER', 'COMPLETED', 'b0000004-0000-0000-0000-000000000004')
-ON CONFLICT DO NOTHING;
-
-INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000005-0000-0000-0000-000000000005', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-04-10 08:00', '2024-04-15 18:00', 325000.00, 'CONFIRMED')
-ON CONFLICT DO NOTHING;
-
-INSERT INTO payments (id, amount, payment_date, method, status, booking_id) VALUES 
-('p0000005-0000-0000-0000-000000000005', 325000.00, '2024-04-10 08:00', 'CREDIT_CARD', 'COMPLETED', 'b0000005-0000-0000-0000-000000000005')
-ON CONFLICT DO NOTHING;
-
--- Reservas de relleno masivas (Precios aleatorios coherentes)
-INSERT INTO bookings (id, user_id, tool_id, start_date, end_date, total_price, status) VALUES 
-('b0000006-0000-0000-0000-000000000006', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-05-01 08:00', '2024-05-03 18:00', 130000.00, 'COMPLETED'),
-('b0000007-0000-0000-0000-000000000007', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-05-05 08:00', '2024-05-06 18:00', 65000.00, 'COMPLETED'),
-('b0000008-0000-0000-0000-000000000008', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-05-10 08:00', '2024-05-15 18:00', 325000.00, 'COMPLETED'),
-('b0000009-0000-0000-0000-000000000009', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-06-01 08:00', '2024-06-03 18:00', 130000.00, 'COMPLETED'),
-('b0000010-0000-0000-0000-000000000010', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-06-10 08:00', '2024-06-12 18:00', 130000.00, 'COMPLETED'),
-('b0000011-0000-0000-0000-000000000011', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-07-01 08:00', '2024-07-05 18:00', 260000.00, 'COMPLETED'),
-('b0000012-0000-0000-0000-000000000012', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-07-15 08:00', '2024-07-16 18:00', 65000.00, 'COMPLETED'),
-('b0000013-0000-0000-0000-000000000013', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-08-01 08:00', '2024-08-02 18:00', 65000.00, 'COMPLETED'),
-('b0000014-0000-0000-0000-000000000014', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-08-10 08:00', '2024-08-15 18:00', 325000.00, 'COMPLETED'),
-('b0000015-0000-0000-0000-000000000015', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-09-01 08:00', '2024-09-05 18:00', 260000.00, 'COMPLETED')
-ON CONFLICT DO NOTHING;
+('d0000006-0000-0000-0000-000000000006', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-05-01 08:00:00', '2024-05-03 18:00:00', 130000.00, 'COMPLETED'),
+('d0000007-0000-0000-0000-000000000007', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-05-05 08:00:00', '2024-05-06 18:00:00', 65000.00, 'COMPLETED'),
+('d0000008-0000-0000-0000-000000000008', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-05-10 08:00:00', '2024-05-15 18:00:00', 325000.00, 'COMPLETED'),
+('d0000009-0000-0000-0000-000000000009', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-06-01 08:00:00', '2024-06-03 18:00:00', 130000.00, 'COMPLETED'),
+('d0000010-0000-0000-0000-000000000010', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-06-10 08:00:00', '2024-06-12 18:00:00', 130000.00, 'COMPLETED'),
+('d0000011-0000-0000-0000-000000000011', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-07-01 08:00:00', '2024-07-05 18:00:00', 260000.00, 'COMPLETED'),
+('d0000012-0000-0000-0000-000000000012', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-07-15 08:00:00', '2024-07-16 18:00:00', 65000.00, 'COMPLETED'),
+('d0000013-0000-0000-0000-000000000013', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-08-01 08:00:00', '2024-08-02 18:00:00', 65000.00, 'COMPLETED'),
+('d0000014-0000-0000-0000-000000000014', '44444444-4444-4444-4444-444444444444', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-08-10 08:00:00', '2024-08-15 18:00:00', 325000.00, 'COMPLETED'),
+('d0000015-0000-0000-0000-000000000015', '55555555-5555-5555-5555-555555555555', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '2024-09-01 08:00:00', '2024-09-05 18:00:00', 260000.00, 'COMPLETED')
+ON CONFLICT (id) DO NOTHING;
