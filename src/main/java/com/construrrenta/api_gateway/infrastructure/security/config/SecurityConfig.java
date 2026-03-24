@@ -87,19 +87,22 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-            "http://localhost:5173",
-            "http://localhost:5174",
-            "https://proyecto-spring-boot-front-sajb.vercel.app"
-        )); 
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
+public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    // Usamos setAllowedOriginPatterns para ser más flexibles
+    configuration.setAllowedOriginPatterns(List.of(
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "https://*.vercel.app", // Esto permite cualquier subdominio de Vercel
+        "https://proyecto-spring-boot-front-sajb.vercel.app"
+    )); 
+    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
+    configuration.setAllowCredentials(true);
+    configuration.setMaxAge(3600L); // Cachear la respuesta de CORS por una hora
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+}
 }
