@@ -7,7 +7,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # ETAPA 2: Ejecución
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 # Aquí está el nombre corregido
 COPY --from=build /app/target/security-app-1.0.0-SNAPSHOT.jar app.jar
